@@ -5,10 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-
-    <link rel="shortcut icon" href="{% static 'favicon/favicon.png' %}" type="image/x-icon">
-    <link rel="icon" href="{% static 'favicon/favicon.png' %}" type="image/x-icon">
+    <title>그거어때</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.5/flowbite.min.css" rel="stylesheet" />
 
@@ -25,61 +22,56 @@
         },
         fontFamily: {
           'body': [
-        'Inter', 
-        'ui-sans-serif', 
-        'system-ui', 
-        '-apple-system', 
-        'system-ui', 
-        'Segoe UI', 
-        'Roboto', 
-        'Helvetica Neue', 
-        'Arial', 
-        'Noto Sans', 
-        'sans-serif', 
-        'Apple Color Emoji', 
-        'Segoe UI Emoji', 
-        'Segoe UI Symbol', 
-        'Noto Color Emoji'
-      ],
+            'Inter', 
+            'ui-sans-serif', 
+            'system-ui', 
+            '-apple-system', 
+            'system-ui', 
+            'Segoe UI', 
+            'Roboto', 
+            'Helvetica Neue', 
+            'Arial', 
+            'Noto Sans', 
+            'sans-serif', 
+            'Apple Color Emoji', 
+            'Segoe UI Emoji', 
+            'Segoe UI Symbol', 
+            'Noto Color Emoji'
+          ],
           'sans': [
-        'Inter', 
-        'ui-sans-serif', 
-        'system-ui', 
-        '-apple-system', 
-        'system-ui', 
-        'Segoe UI', 
-        'Roboto', 
-        'Helvetica Neue', 
-        'Arial', 
-        'Noto Sans', 
-        'sans-serif', 
-        'Apple Color Emoji', 
-        'Segoe UI Emoji', 
-        'Segoe UI Symbol', 
-        'Noto Color Emoji'
-      ]
+            'Inter', 
+            'ui-sans-serif', 
+            'system-ui', 
+            '-apple-system', 
+            'system-ui', 
+            'Segoe UI', 
+            'Roboto', 
+            'Helvetica Neue', 
+            'Arial', 
+            'Noto Sans', 
+            'sans-serif', 
+            'Apple Color Emoji', 
+            'Segoe UI Emoji', 
+            'Segoe UI Symbol', 
+            'Noto Color Emoji'
+          ]
         }
       }
     }
 
   </script>
-  <style>
-    @font-face {
-      font-family: 'Happiness-Sans-Bold';
-      src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2205@1.0/Happiness-Sans-Bold.woff2') format('woff2');
-      font-weight: 700;
-      font-style: normal;
-    }
-  </style>
+
 </head>
 <body class="relative">
-  {% comment %} NavBar {% endcomment %}
-  {% comment %} <header class="sticky top-0 z-50">{% include 'header.html' %}</header> {% endcomment %}
+  <header class="sticky top-0 z-50">{% include 'header.html' %}</header>
+  <div id="wrap">
+    {% block body %}  {% endblock body %}
+  </div>
+  
+  <footer>{% include 'footer.html' %}</footer>
 
-  {% block body %}  {% endblock body %}
-
-  {% comment %} <footer>{% include 'footer.html' %}</footer> {% endcomment %}
   {% block js %}{% endblock js %}
+
   <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.5/flowbite.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </body>
