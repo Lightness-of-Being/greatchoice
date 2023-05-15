@@ -1,0 +1,146 @@
+{% extends 'base.html' %}
+{% block body %}
+<div class="flex flex-row p-10">
+  <div class="w-1/4 bg-white border border-gray-200 rounded-lg shadow mr-5">
+    <div class="flex justify-end px-4 pt-4">
+      <button id="dropdownButton" data-dropdown-toggle="dropdown" class="inline-block text-gray-500 hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg text-sm p-1.5" type="button">
+        <span class="sr-only">Open dropdown</span>
+        <svg class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M6 10a2 2 0 11-4 0 2 2 0 014 0zM12 10a2 2 0 11-4 0 2 2 0 014 0zM16 12a2 2 0 100-4 2 2 0 000 4z"></path></svg>
+      </button>
+      <!-- Dropdown menu -->
+      <div id="dropdown" class="z-10 hidden text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow w-44">
+        <ul class="py-2" aria-labelledby="dropdownButton">
+        <li>
+          <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">회원정보 수정</a>
+        </li>
+        <li>
+          <a href="#" class="block px-4 py-2 text-sm text-red-600 hover:bg-gray-100">회원탈퇴</a>
+        </li>
+        </ul>
+      </div>
+    </div>
+    <div class="flex flex-col items-center pb-10">
+      <img class="w-24 h-24 mb-3 rounded-full shadow-lg" src="https://picsum.photos/200" alt="#"/>
+      <h5 class="mb-1 text-xl font-medium text-gray-900">{{ person.username }}</h5>
+      <span class="text-sm text-gray-500">팔로잉 {{ person.followings.all.count }} / 팔로워 {{ person.followers.all.count }}</span>
+      {% if request.user != person %}
+        <div class="flex mt-4 space-x-3 md:mt-6">
+          <form action="{% url 'accounts:follow' person.pk %}" method="POST">
+            {% csrf_token %}
+            <button type="submit" class="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300">
+              {% if request.user in person.followers.all %}
+                Unfollow
+              {% else %}
+                Follow
+              {% endif %}
+            </button>
+          </form>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+  
+  <div class="w-full bg-white border border-gray-200 rounded-lg shadow">
+    <ul class="flex flex-wrap text-sm font-medium text-center text-gray-500 border-b border-gray-200 rounded-t-lg bg-gray-50" id="defaultTab" data-tabs-toggle="#defaultTabContent" role="tablist">
+      <li class="mr-2">
+        <button id="review-tab" data-tabs-target="#review" type="button" role="tab" aria-controls="review" aria-selected="true" class="inline-block p-4 text-blue-600 rounded-tl-lg hover:bg-gray-100">내가 쓴 리뷰</button>
+      </li>
+      <li class="mr-2">
+        <button id="like-tab" data-tabs-target="#like" type="button" role="tab" aria-controls="like" aria-selected="false" class="inline-block p-4 hover:text-gray-600 hover:bg-gray-100">내가 좋아요한 리뷰</button>
+      </li>
+      <li class="mr-2">
+        <button id="following-tab" data-tabs-target="#following" type="button" role="tab" aria-controls="following" aria-selected="false" class="inline-block p-4 hover:text-gray-600 hover:bg-gray-100">팔로잉 목록</button>
+      </li>
+      <li class="mr-2">
+        <button id="follower-tab" data-tabs-target="#follower" type="button" role="tab" aria-controls="follower" aria-selected="false" class="inline-block p-4 hover:text-gray-600 hover:bg-gray-100">팔로워 목록</button>
+      </li>
+    </ul>
+    <div id="defaultTabContent">
+      <div class="hidden p-4 bg-white rounded-lg" id="review" role="tabpanel" aria-labelledby="review-tab">
+
+      </div>
+      <div class="hidden p-4 bg-white rounded-lg" id="like" role="tabpanel" aria-labelledby="like-tab">
+
+      </div>
+      <div class="hidden p-4 bg-white rounded-lg" id="following" role="tabpanel" aria-labelledby="following-tab">
+        <div class="flow-root">
+          <ul role="list" class="divide-y divide-gray-200">
+            {% for one in person.followings.all %}
+              <li class="py-3 sm:py-4">
+                <div class="flex items-center space-x-4">
+                  <div class="flex-shrink-0">
+                    <img class="w-8 h-8 rounded-full" src="https://picsum.photos/200" alt="">
+                  </div>
+                  <div class="flex-1 min-w-0">
+                    <a href="{% url 'accounts:mypage' one.username %}">
+                      <p class="text-sm font-medium text-gray-900 truncate">
+                      {{ one.username }}
+                      </p>
+                    </a>
+                    <p class="text-sm text-gray-500 truncate">
+                      팔로잉 {{ one.followings.all.count }} / 팔로워 {{ one.followers.all.count }}
+                    </p>
+                  </div>
+                  <div class="inline-flex items-center text-base font-semibold text-gray-900">
+                    {% if request.user != one %}
+                      <form action="{% url 'accounts:follow' one.pk %}" method="POST">
+                        {% csrf_token %}
+                        <button type="submit" class="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300">
+                          {% if request.user in one.followers.all %}
+                            Unfollow
+                          {% else %}
+                            Follow
+                          {% endif %}
+                        </button>
+                      </form>
+                    {% endif %}
+                  </div>
+                </div>
+              </li>
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+      <div class="hidden p-4 bg-white rounded-lg" id="follower" role="tabpanel" aria-labelledby="follower-tab">
+        <div class="flow-root">
+          <ul role="list" class="divide-y divide-gray-200">
+            {% for one in person.followers.all %}
+              <li class="py-3 sm:py-4">
+                <div class="flex items-center space-x-4">
+                  <div class="flex-shrink-0">
+                    <img class="w-8 h-8 rounded-full" src="https://picsum.photos/200" alt="">
+                  </div>
+                  <div class="flex-1 min-w-0">
+                    <a href="{% url 'accounts:mypage' one.username %}">
+                      <p class="text-sm font-medium text-gray-900 truncate">
+                      {{ one.username }}
+                      </p>
+                    </a>
+                    <p class="text-sm text-gray-500 truncate">
+                      팔로잉 {{ one.followings.all.count }} / 팔로워 {{ one.followers.all.count }}
+                    </p>
+                  </div>
+                  <div class="inline-flex items-center text-base font-semibold text-gray-900">
+                    {% if request.user != one %}
+                      <form action="{% url 'accounts:follow' one.pk %}" method="POST">
+                        {% csrf_token %}
+                        <button type="submit" class="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300">
+                          {% if request.user in one.followers.all %}
+                            Unfollow
+                          {% else %}
+                            Follow
+                          {% endif %}
+                        </button>
+                      </form>
+                    {% endif %}
+                  </div>
+                </div>
+              </li>
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock body %}

@@ -27,7 +27,11 @@
       </div>
       {% if request.user.is_authenticated %}
         <div class="mx-4 text-white">
-          <a href="#">마이페이지</a>
+
+          <a href="{% url 'accounts:mypage' request.user.username %}">내 페이지</a>
+
+          <a href="{% url 'accounts:profile' %}">마이페이지</a>
+
         </div>
         <div class="mx-4 text-white">
           <a href="{% url 'accounts:logout' %}">로그아웃</a>

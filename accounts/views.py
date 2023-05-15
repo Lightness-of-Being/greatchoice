@@ -3,8 +3,10 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login as auth_login, logout as auth_logout
 from .forms import CustomAuthenticationForm, CustomUserCreationForm
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth import get_user_model
 from allauth.socialaccount.models import SocialAccount
 from django.views import View
+
 
 # Create your views here.
 def kakao_disconnect(request):
@@ -15,7 +17,7 @@ def kakao_disconnect(request):
     # 계정 삭제 후 리다이렉트할 URL
     redirect_url = 'reviews:index'
 
-    return redirect(redirect_url)
+    return redirect('reviews:index')
 
 def login(request):
     if request.user.is_authenticated:
@@ -42,7 +44,7 @@ def signup(request):
         if form.is_valid():
             user = form.save()
             auth_login(request, user)
-            return redirect('reviews:index')
+            return redirect('reviews:index') 
     else:
         form = CustomUserCreationForm()
     context = {
@@ -61,6 +63,25 @@ def delete(request):
     auth_logout(request)
     return redirect('reviews:index')
 
+def mypage(request, username):
+    User = get_user_model()
+    person = User.objects.get(username=username)
+    context = {
+        'person': person,
+    }
+    return render(request, 'accounts/mypage.html', context)
+
+@login_required
+def follow(request, user_pk):
+    User = get_user_model()
+    person = User.objects.get(pk=user_pk)
+    if person != request.user:
+        if request.user in person.followers.all():
+            person.followers.remove(request.user)
+        else:
+            person.followers.add(request.user)    
+    return redirect('accounts:mypage', person.username)
+
 @login_required
 def profile(request):
     # 카카오 연결 여부 확인
@@ -70,3 +91,5 @@ def profile(request):
         'is_kakao_connected': is_kakao_connected
     }
     return render(request, 'accounts/profile.html', context)
+ 
+ 
