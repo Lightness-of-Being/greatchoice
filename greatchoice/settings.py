@@ -35,6 +35,10 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     'accounts',
     'reviews',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.kakao',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -42,6 +46,22 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 ]
+LOGIN_REDIRECT_URL = '/reviews/'
+AUTHENTICATION_BACKENDS = [
+    'allauth.account.auth_backends.AuthenticationBackend',
+]
+ACCOUNT_DEFAULT_HTTP_PROTOCOL = 'http'
+ACCOUNT_AUTHENTICATION_METHOD = 'username_email'
+ACCOUNT_EMAIL_REQUIRED = True
+SOCIALACCOUNT_PROVIDERS = {
+    'kakao': {
+        'APP': {
+            'client_id': '2b32ed18d6b9e74e75b2070ed420a053',
+            'secret': 'bpxhxbfjCDmyaNIddzJBNvvSqzvWKDSJ',
+            'key': ''
+        }
+    }
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

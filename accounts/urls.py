@@ -18,14 +18,13 @@ from django.urls import path, include
 from django.conf.urls.static import static
 from . import views
 
-
-
 app_name = 'accounts'
 
 urlpatterns = [
-    path('signup/', views.signup, name='signup'),
+    path('social/signup/', views.signup, name='signup'),
+    path('kakao/disconnect/', views.kakao_disconnect, name='kakao_disconnect'),
     path('delete/', views.delete, name='delete'),
     path('login/', views.login, name='login'),
     path('logout/', views.logout, name='logout'),
-    path('mypage/<str:username>', views.mypage, name='mypage'),
+    path('profile/', views.profile, name='profile'),
 ]

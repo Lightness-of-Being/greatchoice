@@ -9,21 +9,20 @@
 {% block body %}
 
 <!-- 캐러셀 -->
-    <div class="index_container">
-        <div id="default-carousel" class="relative w-1/2" data-carousel="slide">
-            <div class="relative h-56 overflow-hidden rounded-lg md:h-96">
-                <!-- Item 1 -->
-                <div class="hidden duration-700 ease-in-out" data-carousel-item>
-                    <img src="{% static 'img/galaxy_23.png' %}" class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 main_carousel_img" alt="...">
-                </div>
-                <!-- Item 2 -->
-                <div class="hidden duration-700 ease-in-out" data-carousel-item>
-                    <img src="{% static 'img/galaxy_23.png' %}" class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 main_carousel_img" alt="...">
-                </div>
-                <!-- Item 3 -->
-                <div class="hidden duration-700 ease-in-out" data-carousel-item>
-                    <img src="{% static 'img/galaxy_23.png' %}" class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 main_carousel_img" alt="...">
-                </div>
+<div class="index_container">
+    <div id="default-carousel" class="relative w-1/2" data-carousel="slide">
+        <div class="relative h-56 overflow-hidden rounded-lg md:h-96">
+            <!-- Item 1 -->
+            <div class="hidden duration-700 ease-in-out" data-carousel-item>
+                <img src="{% static 'img/galaxy_23.png' %}" class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 main_carousel_img" alt="...">
+            </div>
+            <!-- Item 2 -->
+            <div class="hidden duration-700 ease-in-out" data-carousel-item>
+                <img src="{% static 'img/galaxy_23.png' %}" class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 main_carousel_img" alt="...">
+            </div>
+            <!-- Item 3 -->
+            <div class="hidden duration-700 ease-in-out" data-carousel-item>
+                <img src="{% static 'img/galaxy_23.png' %}" class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 main_carousel_img" alt="...">
             </div>
         </div>
         <!-- Slider indicators -->
@@ -45,85 +44,30 @@
                 <span class="sr-only">Next</span>
             </span>
         </button>
+        </div>
     </div>
 
     <!-- 갤러리 / 주요 상품 리스트 -->
     <div class="category_buttons">
-        <button onclick="location.href='{% url 'reviews:index' %}'; change_btn(event)" class="category_button active" id="all" type="button">전체</button>
-        <button onclick="change_btn(event)" class="category_button" id="phone" type="button">휴대폰</button>
-        <button onclick="change_btn(event)" class="category_button" id="headset" type="button">헤드셋/이어폰</button>
-        <button onclick="change_btn(event)" class="category_button" id="ramen" type="button">라면</button>
+        <button onclick="location.href='{% url 'reviews:category' category_type='top' %}'" class="category_button active" id="top" type="button">상의</button>
+        <button onclick="location.href='{% url 'reviews:category' category_type='outerwear' %}'" class="category_button" id="outerwear" type="button">아우터</button>
+        <button onclick="location.href='{% url 'reviews:category' category_type='bottoms' %}'" class="category_button" id="bottoms" type="button">하의</button>
+        <button onclick="location.href='{% url 'reviews:category' category_type='shoes' %}'" class="category_button" id="shoes" type="button">신발</button>
+        {% comment %} <button onclick="change_btn(event)" class="category_button" id="ramen" type="shoes">신발</button> {% endcomment %}
     </div>
     <div>
     <div class="category_container">
-        <div class="category_title">
-            <a href="category">휴대폰</a>
+        <div class="ranking_title">
+            <p>실시간 랭킹</p>
         </div>
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 w-1/2">
+        <div class="grid grid-cols-2 md:grid-cols-5 gap-4 w-1/2">
+            {% for product in products_ranking %}
             <div>
-                <img class="h-auto max-w-full rounded-lg" src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image.jpg" alt="">
-                <p class="product_list">아이폰 14 Pro</p>
+                <img src="{{ product.photo }}" alt="이미지 없음">
+                <strong><p>{{ product.brand }}</p></strong>
+                <p class="product_title">{{ product.title }}</p>
             </div>
-            <div>
-                <img class="h-auto max-w-full rounded-lg" src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-1.jpg" alt="">
-                <p class="product_list">아이폰 14 Pro</p>
-            </div>
-            <div>
-                <img class="h-auto max-w-full rounded-lg" src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-2.jpg" alt="">
-                <p class="product_list">아이폰 14 Pro</p>
-            </div>
-            <div>
-                <img class="h-auto max-w-full rounded-lg" src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-3.jpg" alt="">
-                <p class="product_list">아이폰 14 Pro</p>
-            </div>
-        </div>
-    </div>
-    
-    <div class="category_container">
-        <div class="category_title">
-            <a href="">헤드셋/이어폰</a>
-        </div>
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 w-1/2">
-            <div>
-                <img class="h-auto max-w-full rounded-lg" src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-4.jpg" alt="">
-                <p class="product_list">소니</p>
-            </div>
-            <div>
-                <img class="h-auto max-w-full rounded-lg" src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-5.jpg" alt="">
-                <p class="product_list">에어팟</p>
-            </div>
-            <div>
-                <img class="h-auto max-w-full rounded-lg" src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-6.jpg" alt="">
-                <p class="product_list">갤럭시 버즈</p>
-            </div>
-            <div>
-                <img class="h-auto max-w-full rounded-lg" src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-7.jpg" alt="">
-                <p class="product_list">QCY</p>
-            </div>
-        </div>
-    </div>
-
-    <div class="category_container">
-        <div class="category_title">
-            <a href="">라면</a>
-        </div>
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 w-1/2">
-            <div>
-                <img class="h-auto max-w-full rounded-lg" src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-4.jpg" alt="">
-                <p class="product_list">신라면</p>
-            </div>
-            <div>
-                <img class="h-auto max-w-full rounded-lg" src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-5.jpg" alt="">
-                <p class="product_list">진라면</p>
-            </div>
-            <div>
-                <img class="h-auto max-w-full rounded-lg" src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-6.jpg" alt="">
-                <p class="product_list">너구리</p>
-            </div>
-            <div>
-                <img class="h-auto max-w-full rounded-lg" src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-7.jpg" alt="">
-                <p class="product_list">안성탕면</p>
-            </div>
+            {% endfor %}
         </div>
     </div>
     

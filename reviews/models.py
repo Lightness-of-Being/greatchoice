@@ -1,15 +1,12 @@
 from django.db import models
 from django.conf import settings
 
-# Create your models here.
-class Category(models.Model):
-    title = models.CharField(max_length=20)
-
 class Product(models.Model):
     title = models.CharField(max_length=50)
-    category = models.ForeignKey(Category, on_delete=models.CASCADE)
-    content = models.TextField()
+    brand = models.CharField(max_length=50)
     photo = models.ImageField(blank=True, upload_to='product_images/')
+    product_id = models.CharField(max_length=50)
+
 
 class Review(models.Model):
     title = models.CharField(max_length=20)

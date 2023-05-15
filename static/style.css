@@ -81,7 +81,7 @@ footer {
   margin-bottom: 2.5rem;
 }
 
-.category_title {
+.ranking_title {
   width: 50%;
   font-size: 1.5rem;
   font-weight: bold;
@@ -93,4 +93,38 @@ footer {
   text-align: center;
   margin-top: 0.625rem;
 }
+
+.product_title {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 /* index.html */
+
+/* category.html */
+.category_title {
+  width: 50%;
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+  text-align: left;
+}
+/* category.html */
+
+/* search.html */
+.search_title {
+  width: 58%;
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+  text-align: left;
+}
+
+.search_img {
+  border-radius: 10px;
+}
+
+.search_card {
+  margin-bottom: 20px;
+}
+/* search.html */

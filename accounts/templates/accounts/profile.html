@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load socialaccount %}
+
+{% block body %}
+<h2>프로필 페이지 입니다.</h2>
+<p>안녕하세요 {{user}} </p>
+{% if is_kakao_connected %}
+    <p>카카오 계정이 연결되어 있습니다.</p>
+    <a href="{% url 'accounts:kakao_disconnect' %}">카카오 연결 끊기</a>
+{% else %}
+    <p>카카오 계정이 연결되어 있지 않습니다.</p>
+    <a href="{% provider_login_url 'kakao' %}">카카오 로그인</a>
+{% endif %}
+{% endblock %}
